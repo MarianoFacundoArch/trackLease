@@ -1,0 +1,19 @@
+{
+  "name": "tracklease",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.5.1",
+    "dotenv-extended": "^2.9.0",
+    "dotenv-parse-variables": "^2.0.0",
+    "log4js": "^6.9.1",
+    "mongoose": "^7.6.3"
+  }
+}
