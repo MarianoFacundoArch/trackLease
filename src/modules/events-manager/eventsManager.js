@@ -1,6 +1,7 @@
 import { logger, reportError } from "../logger/logger.js";
 import axios from "axios";
 import configProvider from "../config-provider/configProvider.js";
+import EventLog from "../../models/eventLog.js";
 const reportNewUnitFound = async (priceRecord) => {
   try {
     if (!priceRecord) throw new Error("priceRecord is null or undefined");
@@ -8,6 +9,10 @@ const reportNewUnitFound = async (priceRecord) => {
     await axios.post(configProvider.IFTT_ENDPOINT, {
       value1: notificationText,
     });
+    const newEvent = new EventLog({
+      description: notificationText,
+    });
+    await newEvent.save();
     logger.debug(notificationText);
   } catch (err) {
     reportError("eventsManager.reportNewUnitFound", err);
@@ -21,6 +26,11 @@ const reportNewPricingFound = async (priceRecord, oldPrice) => {
     await axios.post(configProvider.IFTT_ENDPOINT, {
       value1: notificationText,
     });
+
+    const newEvent = new EventLog({
+      description: notificationText,
+    });
+    await newEvent.save();
 
     logger.debug(notificationText);
   } catch (err) {
