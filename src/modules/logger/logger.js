@@ -1,6 +1,7 @@
 import log4js from "log4js";
 import ErrorLog from "../../models/errorLog.js";
 import configProvider from "../config-provider/configProvider.js";
+
 // @ts-ignore
 log4js.configure({
   appenders: {
@@ -36,7 +37,11 @@ const createLogEntryInDbIfEnabled = async (
     if (configProvider.CREATE_DB_LOG_FOR_ERRORS) {
       const newLog = new ErrorLog({
         nameOfFunctionGeneratingTheError: nameOfFunctionGeneratingTheError,
-        errorObject: errorObject,
+        errorObject: {
+          description: errorObject.toString(),
+          stack: errorObject.stack,
+          extraData: errorObject.extraData,
+        },
       });
 
       await newLog.save();

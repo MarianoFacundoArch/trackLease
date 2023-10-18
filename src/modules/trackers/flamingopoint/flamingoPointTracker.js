@@ -5,8 +5,8 @@ import UnexpectedResponseError from "../../errors/unexpectedResponseError.js";
 import { logger, reportError } from "../../logger/logger.js";
 import https from "https";
 
-const propertyName = "Solitair";
-class livesolitairTracker extends trackerInterface {
+const propertyName = "FlamingoPoint";
+class flamingPointTracker extends trackerInterface {
   constructor() {
     super();
   }
@@ -20,15 +20,14 @@ class livesolitairTracker extends trackerInterface {
           rejectUnauthorized: false,
         }),
       });
-
       const responseData = await axiosInstance.get(
-        "https://livesolitair.com/CmsSiteManager/callback.aspx?act=Proxy/GetUnits&available=true&honordisplayorder=true&siteid=8757847&leaseterm=12"
+        "https://www.flamingo-point.com/en/apartments/residences/_jcr_content.residences.json"
       );
 
       if (
         !responseData.data ||
-        !responseData.data.units ||
-        responseData.data.units.length === 0
+        !Array.isArray(responseData.data) ||
+        responseData.data.length === 0
       ) {
         throw new UnexpectedResponseError(
           "Unexpected response from server",
@@ -36,14 +35,14 @@ class livesolitairTracker extends trackerInterface {
         );
       }
 
-      for (const currentAptWithPrice of responseData.data.units) {
+      for (const currentAptWithPrice of responseData.data) {
         const currentPriceRecordDataObject = createPriceRecordDataObject(
           propertyName,
-          currentAptWithPrice.name,
-          currentAptWithPrice.numberOfBeds,
-          currentAptWithPrice.numberOfBaths,
-          currentAptWithPrice.squareFeet,
-          currentAptWithPrice.rent
+          currentAptWithPrice.unitName,
+          currentAptWithPrice.bedrooms,
+          currentAptWithPrice.bathrooms,
+          currentAptWithPrice.sqft,
+          currentAptWithPrice.minRent
         );
         this.foundPriceRecordDataObjects.push(currentPriceRecordDataObject);
       }
@@ -55,4 +54,4 @@ class livesolitairTracker extends trackerInterface {
   }
 }
 
-export default livesolitairTracker;
+export default flamingPointTracker;
