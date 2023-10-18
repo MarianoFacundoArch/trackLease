@@ -3,6 +3,7 @@ import { initializeMongoose } from "./modules/mongoose/mongoose.js";
 import flamingPointTracker from "./modules/trackers/flamingopoint/flamingoPointTracker.js";
 import flamingoSouthBeachTracker from "./modules/trackers/framingosouthbeach/flamingoSouthBeachTracker.js";
 import livesolitairTracker from "./modules/trackers/livesolitair/livesolitairTracker.js";
+import muzeMetMiamiTracker from "./modules/trackers/muzemetmiamitracker/muzemetmiamitracker.js";
 
 await initializeMongoose();
 
@@ -13,6 +14,8 @@ const createTrackersAndTrackPrices = () => {
   flamingoPointTrackerInstance.trackPrices();
   const flamingoSouthBeachTrackerInstance = new flamingoSouthBeachTracker();
   flamingoSouthBeachTrackerInstance.trackPrices();
+  const muzeMetMiamiTrackerInstance = new muzeMetMiamiTracker();
+  muzeMetMiamiTrackerInstance.trackPrices();
 };
 
 createTrackersAndTrackPrices();
