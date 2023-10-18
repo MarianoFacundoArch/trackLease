@@ -7,12 +7,12 @@ import livesolitairTracker from "./modules/trackers/livesolitair/livesolitairTra
 await initializeMongoose();
 
 const createTrackersAndTrackPrices = () => {
-  const liveSolitairTracker = new livesolitairTracker();
-  liveSolitairTracker.trackPrices();
-  const flamingoPointTracker = new flamingPointTracker();
-  flamingoPointTracker.trackPrices();
-  const flamingoSouthBeachTracker = new flamingoSouthBeachTracker();
-  flamingoSouthBeachTracker.trackPrices();
+  const liveSolitairTrackingInstance = new livesolitairTracker();
+  liveSolitairTrackingInstance.trackPrices();
+  const flamingoPointTrackerInstance = new flamingPointTracker();
+  flamingoPointTrackerInstance.trackPrices();
+  const flamingoSouthBeachTrackerInstance = new flamingoSouthBeachTracker();
+  flamingoSouthBeachTrackerInstance.trackPrices();
 };
 
 createTrackersAndTrackPrices();
