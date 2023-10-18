@@ -2,7 +2,7 @@ import axios from "axios";
 import trackerInterface from "../../../interfaces/trackerInterface.js";
 import createPriceRecordDataObject from "../../../utils/createPriceRecordDataObject.js";
 import UnexpectedResponseError from "../../errors/unexpectedResponseError.js";
-import { reportError } from "../../logger/logger.js";
+import { logger, reportError } from "../../logger/logger.js";
 
 class livesolitairTracker extends trackerInterface {
   constructor() {
@@ -10,6 +10,7 @@ class livesolitairTracker extends trackerInterface {
   }
 
   async trackPrices() {
+    logger.debug("livesolitairTracker.trackPrices");
     this.foundPriceRecordDataObjects = [];
     try {
       const responseData = await axios.get(

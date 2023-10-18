@@ -4,6 +4,13 @@ import livesolitairTracker from "./modules/trackers/livesolitair/livesolitairTra
 
 await initializeMongoose();
 
-const tracker = new livesolitairTracker();
+const createTrackersAndTrackPrices = () => {
+  const liveSolitairTracker = new livesolitairTracker();
+  liveSolitairTracker.trackPrices();
+};
 
-tracker.trackPrices();
+createTrackersAndTrackPrices();
+
+setInterval(() => {
+  createTrackersAndTrackPrices();
+}, configProvider.RUN_TRACKERS_EVERY_X_MINUTES * 60 * 1000);
